@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+   Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -909,12 +909,15 @@ bool consume_comment(Lex_input_stream *lip, int remaining_recursions_permitted)
   @note
   MYSQLlex remember the following states from the following MYSQLlex():
 
+  @param yylval         [out]  semantic value of the token being parsed (yylval)
+  @param thd            THD
+
   - MY_LEX_EOQ			Found end of query
   - MY_LEX_OPERATOR_OR_IDENT	Last state was an ident, text or number
 				(which can't be followed by a signed number)
 */
 
-int MYSQLlex(YYSTYPE *yylval, YYLTYPE *yylloc, THD *thd)
+int MYSQLlex(YYSTYPE *yylval, THD *thd)
 {
   Lex_input_stream *lip= & thd->m_parser_state->m_lip;
   int token;
@@ -981,7 +984,8 @@ static int lex_one_token(YYSTYPE *yylval, THD *thd)
   uint length;
   enum my_lex_states state;
   Lex_input_stream *lip= & thd->m_parser_state->m_lip;
-  const CHARSET_INFO *cs= thd->charset();
+  LEX *lex= thd->lex;
+  CHARSET_INFO *cs= const_cast<CHARSET_INFO *>(thd->charset());
   uchar *state_map= cs->state_map;
   uchar *ident_map= cs->ident_map;
 

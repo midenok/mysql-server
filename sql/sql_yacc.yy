@@ -81,7 +81,7 @@ int yylex(void *yylval, void *yythd);
     ulong val= *(F);                          \
     if (my_yyoverflow((B), (D), &val))        \
     {                                         \
-      yyerror(NULL, YYTHD, (char*) (A));      \
+      yyerror(YYTHD, (char*) (A));            \
       return 2;                               \
     }                                         \
     else                                      \
@@ -179,7 +179,7 @@ void my_parse_error(const char *s)
   to abort from the parser.
 */
 
-void MYSQLerror(YYLTYPE *, THD *thd, const char *s)
+void MYSQLerror(THD *thd, const char *s)
 {
   /*
     Restore the original LEX if it was replaced when parsing
