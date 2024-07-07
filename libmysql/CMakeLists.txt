@@ -234,8 +234,6 @@ IF(NOT DISABLE_SHARED)
       ENDIF()
       SET(libmysql_link_flags
         "${libmysql_link_flags} ${LINK_FLAG_NO_UNDEFINED}")
-      SET(libmysql_link_flags
-        "${libmysql_link_flags} -Wl,--version-script=libmysql.ver")
       SET_TARGET_PROPERTIES(libmysql
         PROPERTIES LINK_FLAGS "${libmysql_link_flags}")
     ENDIF() 

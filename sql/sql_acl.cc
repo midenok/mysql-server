@@ -2402,7 +2402,7 @@ bool change_password(THD *thd, const char *host, const char *user,
   }
   mysql_mutex_assert_owner(&acl_cache->lock);
   table->use_all_columns();
-  DBUG_ASSERT(host != '\0');
+  DBUG_ASSERT(*host != '\0');
   table->field[MYSQL_USER_FIELD_HOST]->store(host, strlen(host),
                                              system_charset_info);
   table->field[MYSQL_USER_FIELD_USER]->store(user, strlen(user),
@@ -2800,7 +2800,7 @@ update_user_table(THD *thd, TABLE *table,
   if (!is_user_table_positioned)
   {
     table->use_all_columns();
-    DBUG_ASSERT(host != '\0');
+    DBUG_ASSERT(*host != '\0');
     table->field[MYSQL_USER_FIELD_HOST]->store(host, (uint) strlen(host),
 					       system_charset_info);
     table->field[MYSQL_USER_FIELD_USER]->store(user, (uint) strlen(user),
@@ -2926,7 +2926,7 @@ static int replace_user_table(THD *thd, TABLE *table, LEX_USER *combo,
   mysql_mutex_assert_owner(&acl_cache->lock);
  
   table->use_all_columns();
-  DBUG_ASSERT(combo->host.str != '\0');
+  DBUG_ASSERT(*combo->host.str != '\0');
   table->field[MYSQL_USER_FIELD_HOST]->store(combo->host.str,combo->host.length,
                                              system_charset_info);
   table->field[MYSQL_USER_FIELD_USER]->store(combo->user.str,combo->user.length,
@@ -3002,7 +3002,7 @@ static int replace_user_table(THD *thd, TABLE *table, LEX_USER *combo,
 
     old_row_exists = 0;
     restore_record(table,s->default_values);
-    DBUG_ASSERT(combo->host.str != '\0');
+    DBUG_ASSERT(*combo->host.str != '\0');
     table->field[MYSQL_USER_FIELD_HOST]->store(combo->host.str,combo->host.length,
                                                system_charset_info);
     table->field[MYSQL_USER_FIELD_USER]->store(combo->user.str,combo->user.length,
@@ -3122,7 +3122,7 @@ static int replace_user_table(THD *thd, TABLE *table, LEX_USER *combo,
       * An empty password is considered to be of mysql_native type.
     */
     
-    if (combo->plugin.str == NULL || combo->plugin.str == '\0')
+    if (combo->plugin.str == NULL || *combo->plugin.str == '\0')
     {
       if (combo->uses_identified_by_password_clause)
       {

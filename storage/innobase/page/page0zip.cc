@@ -25,7 +25,7 @@ Created June 2005 by Marko Makela
 *******************************************************/
 
 #include <map>
-using namespace std;
+using std::map;
 
 #define THIS_MODULE
 #include "page0zip.h"

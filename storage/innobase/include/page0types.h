@@ -26,9 +26,9 @@ Created 2/2/1994 Heikki Tuuri
 #ifndef page0types_h
 #define page0types_h
 
-using namespace std;
-
 #include <map>
+
+using std::map;
 
 #include "univ.i"
 #include "dict0types.h"
