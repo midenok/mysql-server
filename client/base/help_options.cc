@@ -73,11 +73,9 @@ void Mysql::Tools::Base::Options::Help_options::print_usage()
 {
 
   this->print_version_line();
-
-  std::string first_year_str=
-    (static_cast<std::ostringstream*>(&(
-    std::ostringstream() << this->m_program->get_first_release_year()))
-    ->str());
+  std::ostringstream oss;
+  oss << this->m_program->get_first_release_year();
+  std::string first_year_str= oss.str();
   string copyright;
 
   if (first_year_str == COPYRIGHT_NOTICE_CURRENT_YEAR)
